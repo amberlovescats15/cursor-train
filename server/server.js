@@ -28,10 +28,22 @@ db.serialize(() => {
   db.get("SELECT COUNT(*) as count FROM recipes", (err, row) => {
     if (row.count === 0) {
       const sample = [
+        // Happy
         ['Colorful Salad', 'happy', 'Lettuce, Tomato, Cucumber', 'Mix and serve.'],
+        ['Fruit Parfait', 'happy', 'Yogurt, Granola, Mixed Berries, Honey', 'Layer yogurt, granola, and berries. Drizzle with honey.'],
+        ['Lemon Cupcakes', 'happy', 'Flour, Sugar, Lemon, Eggs, Butter', 'Bake cupcakes and top with lemon frosting.'],
+        // Sad
         ['Mac and Cheese', 'sad', 'Macaroni, Cheese, Milk', 'Cook pasta, add cheese.'],
+        ['Chocolate Brownies', 'sad', 'Chocolate, Flour, Sugar, Eggs, Butter', 'Mix and bake until fudgy.'],
+        ['Chicken Noodle Soup', 'sad', 'Chicken, Noodles, Carrots, Celery, Broth', 'Simmer all ingredients until cooked.'],
+        // Energetic
         ['Energy Bowl', 'energetic', 'Quinoa, Chickpeas, Veggies', 'Mix and enjoy.'],
-        ['Herbal Tea', 'relaxed', 'Tea, Honey', 'Steep and relax.']
+        ['Green Smoothie', 'energetic', 'Spinach, Banana, Almond Milk, Chia Seeds', 'Blend all ingredients until smooth.'],
+        ['Peanut Butter Banana Toast', 'energetic', 'Whole Grain Bread, Peanut Butter, Banana, Honey', 'Spread peanut butter, top with banana and honey.'],
+        // Relaxed
+        ['Herbal Tea', 'relaxed', 'Tea, Honey', 'Steep and relax.'],
+        ['Lavender Shortbread', 'relaxed', 'Flour, Butter, Sugar, Dried Lavender', 'Mix, shape, and bake until golden.'],
+        ['Oatmeal Cookies', 'relaxed', 'Oats, Flour, Sugar, Butter, Raisins', 'Mix and bake until golden brown.']
       ];
       const stmt = db.prepare('INSERT INTO recipes (name, mood, ingredients, instructions) VALUES (?, ?, ?, ?)');
       sample.forEach(r => stmt.run(r));

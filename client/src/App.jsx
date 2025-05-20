@@ -20,12 +20,18 @@ function App() {
   const nextRecipe = () => setCurrent((c) => (c + 1) % recipes.length);
 
   const addRecipe = async (form) => {
-    await fetch('http://localhost:4000/api/recipes', {
+    const response = await fetch('http://localhost:4000/api/recipes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form)
     });
-    if (form.mood === selectedMood) fetchRecipes(selectedMood);
+    const newRecipe = await response.json();
+  
+    // If the new recipe's mood matches the selected mood, show it immediately
+    if (newRecipe.mood === selectedMood) {
+      setRecipes(prev => [newRecipe, ...prev]);
+      setCurrent(0);
+    }
   };
 
   return (
